@@ -3,7 +3,8 @@ import styles from "../styles/Add.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-const Add = ({ setClose }) => {
+const Add = ({ setClose ,URL}) => {
+ 
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
@@ -43,8 +44,8 @@ const Add = ({ setClose }) => {
         extraOptions,
         img: url,
       };
-
-      await axios.post("http://localhost:3000/api/products", newProduct);
+    
+      await axios.post(URL+"api/products", newProduct);
       setClose(true);
     } catch (err) {
       console.log(err);

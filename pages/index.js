@@ -8,7 +8,7 @@ import Featured from "../components/Featured";
 import PizzaList from "../components/PizzaList";
 import styles from "../styles/Home.module.css";
 
-export default function Home({ pizzaList, admin }) {
+export default function Home({ pizzaList, admin ,URL}) {
   const [close, setClose] = useState(true);
   return (
     <div className={styles.container}>
@@ -18,14 +18,16 @@ export default function Home({ pizzaList, admin }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Featured />
+      {console.log("==>",URL)}
       {<AddButton setClose={setClose} />}
       <PizzaList pizzaList={pizzaList} />
-      {!close && <Add setClose={setClose} />}
+      {!close && <Add setClose={setClose} URL={URL}/>}
     </div>
   );
 }
 
 export const getServerSideProps = async (ctx) => {
+  let URL=process.env.URL
   const myCookie = ctx.req?.cookies || "";
   let admin = false;
 
@@ -33,11 +35,12 @@ export const getServerSideProps = async (ctx) => {
     admin = true;
   }
 
-  const res = await axios.get("http://localhost:3000/api/products");
+  const res = await axios.get(URL+"api/products");
   return {
     props: {
       pizzaList: res.data,
       admin,
+      URL
     },
   };
 };
