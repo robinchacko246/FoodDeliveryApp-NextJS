@@ -3,6 +3,6 @@ module.exports = {
   images: {
     domains: ["res.cloudinary.com"]
   },
-  API_URL: "http://localhost:3001/"
+  API_URL: "https://fooddeliverynextapi.herokuapp.com/"
 
 }
