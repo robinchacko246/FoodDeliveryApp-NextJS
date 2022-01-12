@@ -2,8 +2,9 @@ import { useState } from "react";
 import styles from "../styles/Add.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
+import nextConfig from "../next.config";
 
-const Add = ({ setClose ,URL}) => {
+const Add = ({ setClose }) => {
  
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState(null);
@@ -45,7 +46,7 @@ const Add = ({ setClose ,URL}) => {
         img: url,
       };
     
-      await axios.post(URL+"api/products", newProduct);
+      await axios.post(nextConfig.URL+"api/products", newProduct);
       setClose(true);
     } catch (err) {
       console.log(err);
