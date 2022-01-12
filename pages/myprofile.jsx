@@ -22,7 +22,7 @@ const Signup = () => {
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const router = useRouter();
-  useEffect(async() => {
+  useEffect(() => {
     
     const user_token = localStorage.getItem('user-token');
     
@@ -31,7 +31,7 @@ const Signup = () => {
      {
       const user_id = localStorage.getItem('user-id');
     
-      let user=await axios.get(nextConfig.API_URL+"users/user-details/"+user_id,{ 'headers': { 'authorization': user_token } });
+      let user= axios.get(nextConfig.API_URL+"users/user-details/"+user_id,{ 'headers': { 'authorization': user_token } });
       
       setFirstname(user.data.data.firstName);
       //initial rendering
@@ -52,7 +52,7 @@ const Signup = () => {
    
     
   
-  },[])
+  })
    
   const handleClick = async () => {
     try {
