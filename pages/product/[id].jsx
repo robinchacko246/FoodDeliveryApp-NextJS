@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/cartSlice";
+import nextConfig from "../../next.config";
 
 const Product = ({ pizza }) => {
   const [price, setPrice] = useState(pizza.prices[0]);
@@ -95,14 +96,27 @@ const Product = ({ pizza }) => {
   );
 };
 
-export const getServerSideProps = async ({ params }) => {
-  const res = await axios.get(
-    `http://localhost:3000/api/products/${params.id}`
-  );
+
+
+export const getServerSideProps = async ( params ) => {
+  //console.log(params.req);
+  var res={};
+  const myCookie = params.req?.cookies || "";
+  
+  let admin = false;
+
+  if (myCookie.token === process.env.TOKEN) {
+    admin = true;
+  }
+  //console.log(JSON.parse(myCookie.user));
+  if (myCookie.user) {
+    let userDetails = JSON.parse(myCookie.user);
+    res = await axios.get(nextConfig.API_URL+`products/${params.query.id}`,{ headers: { authorization: userDetails.token } });
+  }
+
+  
   return {
-    props: {
-      pizza: res.data,
-    },
+    props: { pizza: res.data },
   };
 };
 

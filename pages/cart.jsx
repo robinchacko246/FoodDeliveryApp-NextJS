@@ -11,6 +11,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { reset } from "../redux/cartSlice";
 import OrderDetail from "../components/OrderDetail";
+import nextConfig from "../next.config";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -24,8 +25,9 @@ const Cart = () => {
 
   const createOrder = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3000/api/orders", data);
-      if (res.status === 201) {
+      const res = await axios.post(nextConfig.API_URL+"orders/create-order", data);
+      console.log(res);
+      if (res.status === 200) {
         dispatch(reset());
         router.push(`/orders/${res.data._id}`);
       }
