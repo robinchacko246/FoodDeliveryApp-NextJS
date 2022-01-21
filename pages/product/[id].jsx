@@ -99,20 +99,11 @@ const Product = ({ pizza }) => {
 
 
 export const getServerSideProps = async ( params ) => {
-  //console.log(params.req);
-  var res={};
-  const myCookie = params.req?.cookies || "";
   
-  let admin = false;
-
-  if (myCookie.token === process.env.TOKEN) {
-    admin = true;
-  }
-  //console.log(JSON.parse(myCookie.user));
-  if (myCookie.user) {
-    let userDetails = JSON.parse(myCookie.user);
-    res = await axios.get(nextConfig.API_URL+`products/${params.query.id}`,{ headers: { authorization: userDetails.token } });
-  }
+  
+    
+   let res = await axios.get(process.env.API_URL+`products/${params.query.id}`);
+  
 
   
   return {

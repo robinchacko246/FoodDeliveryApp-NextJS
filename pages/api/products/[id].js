@@ -13,6 +13,7 @@ export default async function handler(req, res) {
 
   if (method === "GET") {
     try {
+      console.log("inside get pizz");
       const product = await Product.findById(id);
       res.status(200).json(product);
     } catch (err) {
@@ -35,7 +36,8 @@ export default async function handler(req, res) {
   }
 
   if (method === "DELETE") {
-    if(!token || token !== process.env.token){
+   console.log(":inside delete",process.env.TOKEN);
+    if(!token || token !== process.env.TOKEN){
       return res.status(401).json("Not authenticated!")
     }
     try {

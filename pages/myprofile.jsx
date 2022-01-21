@@ -6,7 +6,7 @@ import nextConfig from "../next.config";
 import Auth from "../components/Auth";
 import Toast from "../components/Toast";
 
-const Signup = ({ user }) => {
+const Signup = ({ user ,NEXT_URL,API_URL}) => {
   
   const router = useRouter();
  
@@ -38,7 +38,7 @@ const Signup = ({ user }) => {
         'authorization': localStorage.getItem('user-token')
       }
       
-      await axios.post(nextConfig.API_URL + "users/update", 
+      await axios.post(API_URL + "users/update", 
         userDetails
       ,{
         headers: headers
@@ -111,7 +111,7 @@ export const getServerSideProps = async (ctx) => {
     let userDetails = JSON.parse(myCookie.user);
 
     user = await axios.get(
-      nextConfig.API_URL + "users/user-details/" + userDetails._id,
+      process.env.API_URL + "users/user-details/" + userDetails._id,
       { headers: { authorization: userDetails.token } }
     );
 
@@ -121,6 +121,10 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       user,
+      NEXT_URL: process.env.NEXT_URL,
+      API_URL:process.env.API_URL
     },
   };
 };
+
+

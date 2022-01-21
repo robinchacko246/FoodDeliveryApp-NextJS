@@ -47,7 +47,7 @@ export const getServerSideProps = async (ctx) => {
     admin = true;
   }
   
-  const res = await axios.get(nextConfig.API_URL+"products/get-products");
+  const res = await axios.get(process.env.API_URL+"products/get-products");
   
   return {
     props: {

@@ -2,8 +2,12 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "../../styles/Login.module.css";
+import nextConfig from "../../next.config";
+import getConfig from 'next/config'
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
-const Login = () => {
+const Login = ({NEXT_URL,API_URL}) => {
+  
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
@@ -11,7 +15,7 @@ const Login = () => {
 
   const handleClick = async () => {
     try {
-      await axios.post("http://localhost:3000/api/login", {
+      await axios.post(NEXT_URL+"api/login", {
         username,
         password,
       });
@@ -46,3 +50,16 @@ const Login = () => {
 };
 
 export default Login;
+
+export const getServerSideProps = async (ctx) => {
+  
+ 
+  return {
+    props: {
+      NEXT_URL: process.env.NEXT_URL,
+      API_URL:process.env.API_URL
+    
+    },
+  };
+  
+};
