@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "../styles/Login.module.css";
-import nextConfig from "../next.config";
+
 const Signup = () => {
   const [firstName, setFirstname] = useState(null);
   const [lastName, setLastname] = useState(null);
@@ -15,7 +15,7 @@ const Signup = () => {
 
   const handleClick = async () => {
     try {
-      let user=await axios.post(nextConfig.API_URL+"users/signup", {
+      let user=await axios.post(process.env.NEXT_PUBLIC_API_URL+"users/signup", {
         firstName,
         lastName,
         userName,

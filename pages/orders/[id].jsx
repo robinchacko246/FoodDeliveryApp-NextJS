@@ -128,7 +128,7 @@ export const getServerSideProps = async ( params ) => {
   //console.log(JSON.parse(myCookie.user));
   if (myCookie.user) {
     let userDetails = JSON.parse(myCookie.user);
-    res = await axios.get(nextConfig.API_URL+`orders/${params.query.id}`,{ headers: { authorization: userDetails.token } });
+    res = await axios.get(process.env.NEXT_PUBLIC_API_URL+`orders/${params.query.id}`,{ headers: { authorization: userDetails.token } });
   }
 
   

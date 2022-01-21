@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "../../styles/Admin.module.css";
 import nextConfig from "../../next.config";
 
-const Index = ({ orders, products,NEXT_URL,API_URL }) => {
+const Index = ({ orders, products }) => {
   const [pizzaList, setPizzaList] = useState(products);
   const [orderList, setOrderList] = useState(orders);
   const status = ["preparing", "on the way", "delivered"];
@@ -13,7 +13,7 @@ const Index = ({ orders, products,NEXT_URL,API_URL }) => {
     console.log(id);
     try {
       const res = await axios.delete(
-        NEXT_URL+"/api/products/" + id
+        process.env.NEXT_PUBLIC_NEXT_URL+"/api/products/" + id
       );
       setPizzaList(pizzaList.filter((pizza) => pizza._id !== id));
     } catch (err) {
@@ -26,7 +26,7 @@ const Index = ({ orders, products,NEXT_URL,API_URL }) => {
     const currentStatus = item.status;
 
     try {
-      const res = await axios.put(NEXT_URL+"api/orders/" + id, {
+      const res = await axios.put(process.env.NEXT_PUBLIC_NEXT_URL+"api/orders/" + id, {
         status: currentStatus + 1,
       });
       setOrderList([
@@ -129,16 +129,15 @@ export const getServerSideProps = async (ctx) => {
       },
     };
   }
+  console.log(process.env.NEXT_PUBLIC_NEXT_URL);
 
-  const productRes = await axios.get(process.env.NEXT_URL+"api/products");
-  const orderRes = await axios.get(process.env.NEXT_URL+"api/orders");
+  const productRes = await axios.get(process.env.NEXT_PUBLIC_NEXT_URL+"api/products");
+  const orderRes = await axios.get(process.env.NEXT_PUBLIC_NEXT_URL+"api/orders");
 
   return {
     props: {
       orders: orderRes.data,
-      products: productRes.data,
-      NEXT_URL: process.env.NEXT_URL,
-      API_URL:process.env.API_URL
+      products: productRes.data
     },
   };
 };

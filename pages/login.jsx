@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Toast from "../components/Toast";
 import { useCookies } from "react-cookie"
 
-const Login = ({NEXT_URL,API_URL}) => {
+const Login = () => {
   const [cookie, setCookie] = useCookies(["user"])
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -17,7 +17,7 @@ const Login = ({NEXT_URL,API_URL}) => {
   const handleClick = async () => {
     try {
        //handle API call to sign in here.
-     let user= await axios.post(API_URL+"users/signin", {
+     let user= await axios.post(process.env.NEXT_PUBLIC_API_URL+"users/signin", {
         username,
         password,
       });
@@ -72,16 +72,3 @@ const Login = ({NEXT_URL,API_URL}) => {
 };
 
 export default Login;
-
-export const getServerSideProps = async (ctx) => {
-  
- 
-  return {
-    props: {
-      NEXT_URL: process.env.NEXT_URL,
-      API_URL:process.env.API_URL
-    
-    },
-  };
-  
-};

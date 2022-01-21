@@ -6,7 +6,7 @@ import nextConfig from "../../next.config";
 import getConfig from 'next/config'
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
-const Login = ({NEXT_URL,API_URL}) => {
+const Login = () => {
   
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -15,7 +15,8 @@ const Login = ({NEXT_URL,API_URL}) => {
 
   const handleClick = async () => {
     try {
-      await axios.post(NEXT_URL+"api/login", {
+     
+      await axios.post(process.env.NEXT_PUBLIC_NEXT_URL+"api/login", {
         username,
         password,
       });
@@ -50,16 +51,3 @@ const Login = ({NEXT_URL,API_URL}) => {
 };
 
 export default Login;
-
-export const getServerSideProps = async (ctx) => {
-  
- 
-  return {
-    props: {
-      NEXT_URL: process.env.NEXT_URL,
-      API_URL:process.env.API_URL
-    
-    },
-  };
-  
-};

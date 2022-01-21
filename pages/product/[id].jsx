@@ -102,7 +102,7 @@ export const getServerSideProps = async ( params ) => {
   
   
     
-   let res = await axios.get(process.env.API_URL+`products/${params.query.id}`);
+   let res = await axios.get(process.env.NEXT_PUBLIC_API_URL+`products/${params.query.id}`);
   
 
   

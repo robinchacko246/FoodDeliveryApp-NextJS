@@ -46,7 +46,7 @@ const Add = ({ setClose }) => {
         img: url,
       };
     
-      await axios.post(nextConfig.NEXT_URL+"api/products", newProduct);
+      await axios.post(process.env.NEXT_PUBLIC_NEXT_URL+"api/products", newProduct);
       setClose(true);
     } catch (err) {
       console.log(err);

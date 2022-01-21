@@ -13,7 +13,7 @@ import { reset } from "../redux/cartSlice";
 import OrderDetail from "../components/OrderDetail";
 import nextConfig from "../next.config";
 
-const Cart = ({NEXT_URL,API_URL}) => {
+const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [open, setOpen] = useState(false);
   const [cash, setCash] = useState(false);
@@ -25,7 +25,7 @@ const Cart = ({NEXT_URL,API_URL}) => {
 
   const createOrder = async (data) => {
     try {
-      const res = await axios.post(API_URL+"orders/create-order", data);
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_URL+"orders/create-order", data);
       console.log(res);
       if (res.status === 200) {
         dispatch(reset());
@@ -191,15 +191,3 @@ const Cart = ({NEXT_URL,API_URL}) => {
 };
 
 export default Cart;
-export const getServerSideProps = async (ctx) => {
-  
- 
-  return {
-    props: {
-      NEXT_URL: process.env.NEXT_URL,
-      API_URL:process.env.API_URL
-    
-    },
-  };
-  
-};
