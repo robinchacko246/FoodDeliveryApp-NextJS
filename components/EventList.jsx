@@ -1,7 +1,7 @@
 import styles from "../styles/PizzaList.module.css";
-import PizzaCard from "./PizzaCard";
+import EventCard from "./EventCard";
 
-const PizzaList = ({ pizzaList }) => {
+const EventList = ({ eventList }) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>THE BEST DISHES NOW</h1>
@@ -10,12 +10,12 @@ const PizzaList = ({ pizzaList }) => {
 
       </p>
       <div className={styles.wrapper}>
-        {pizzaList.map((pizza) => (
-          <PizzaCard key={pizza._id} pizza={pizza} />
+        {eventList.map((event) => (
+          <EventCard key={event._id} event={event} />
         ))}
       </div>
     </div>
   );
 };
 
-export default PizzaList;
+export default EventList;

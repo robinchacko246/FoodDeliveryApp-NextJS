@@ -4,18 +4,15 @@ import Image from "next/image";
 import { useState,useEffect } from "react";
 import Add from "../components/Add";
 import AddButton from "../components/AddButton";
-import AddEventButton from "../components/AddEventButton";
-import AddEventPop from "../components/AddEventPop";
 import Featured from "../components/Featured";
-import PizzaList from "../components/PizzaList";
+import EventList from "../components/EventList";
 import styles from "../styles/Home.module.css";
 import nextConfig from "../next.config";
 import { useRouter } from "next/router";
 
 
-export default function Home({ pizzaList, admin}) {
+export default function Home({ eventList, admin}) {
   const [close, setClose] = useState(true);
-  const [closeEvent, setCloseEvent] = useState(true);
   const router = useRouter();
   // useEffect(() => {
 
@@ -32,13 +29,11 @@ export default function Home({ pizzaList, admin}) {
         <meta name="description" content="Best pizza shop in town" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Featured />
+      {/* <Featured />
    
-      {<AddButton setClose={setClose} />}
-      {<AddEventButton setCloseEvent={setCloseEvent} />}
-      <PizzaList pizzaList={pizzaList} />
+      {<AddButton setClose={setClose} />} */}
+      <EventList eventList={eventList} />
       {!close && <Add setClose={setClose}/>}
-      {!closeEvent && <AddEventPop setCloseEvent={setCloseEvent}/>}
     </div>
   );
 }
@@ -52,11 +47,11 @@ export const getServerSideProps = async (ctx) => {
     admin = true;
   }
   
-  const res = await axios.get(process.env.NEXT_PUBLIC_API_URL+"products/get-products");
+  const res = await axios.get(process.env.NEXT_PUBLIC_API_URL+"events/get-events");
   
   return {
     props: {
-      pizzaList: res.data,
+      eventList: res.data,
       admin
     
     },

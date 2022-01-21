@@ -4,8 +4,6 @@ import Image from "next/image";
 import { useState,useEffect } from "react";
 import Add from "../components/Add";
 import AddButton from "../components/AddButton";
-import AddEventButton from "../components/AddEventButton";
-import AddEventPop from "../components/AddEventPop";
 import Featured from "../components/Featured";
 import PizzaList from "../components/PizzaList";
 import styles from "../styles/Home.module.css";
@@ -15,7 +13,6 @@ import { useRouter } from "next/router";
 
 export default function Home({ pizzaList, admin}) {
   const [close, setClose] = useState(true);
-  const [closeEvent, setCloseEvent] = useState(true);
   const router = useRouter();
   // useEffect(() => {
 
@@ -32,13 +29,11 @@ export default function Home({ pizzaList, admin}) {
         <meta name="description" content="Best pizza shop in town" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Featured />
+      {/* <Featured />
    
-      {<AddButton setClose={setClose} />}
-      {<AddEventButton setCloseEvent={setCloseEvent} />}
+      {<AddButton setClose={setClose} />} */}
       <PizzaList pizzaList={pizzaList} />
       {!close && <Add setClose={setClose}/>}
-      {!closeEvent && <AddEventPop setCloseEvent={setCloseEvent}/>}
     </div>
   );
 }
